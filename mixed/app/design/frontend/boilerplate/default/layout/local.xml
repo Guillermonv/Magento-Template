@@ -1,0 +1,36 @@
+<layout version="0.1.0">
+<default>
+
+<!-- Remuevo el shop by category que sale por defecto con y agrego el magebuzz-->
+    <reference name="left">
+        <remove name="catalog.leftnav"/>
+    </reference>
+	
+   <remove name="left.permanent.callout" />  <!--baner pies-->
+   <remove name="right.permanent.callout" />  <!--baner back to school-->
+   <remove name="catalog.compare.sidebar" />  <!--por�wnanie produkt�w-->
+   <remove name="paypal.partner.right.logo" />  <!--logo paypal-->
+   <remove name="right.reports.product.compared" /> <!--por�wanie produkt�w-->	
+      <reference name="left">
+      <remove name="left.newsletter"/>
+   </reference>
+   
+<reference name="right">
+    <action method="unsetChild"><alias>right.reports.product.viewed</alias></action>
+</reference>
+  
+<reference name="right">
+    <action method="unsetChild"><alias>right.reports.product.viewed</alias></action>
+</reference>
+
+
+   <reference name="right">
+      <block type="reports/product_viewed" before="right.permanent.callout" name="right.reports.product.viewed" template="reports/product_viewed.phtml" />
+   </reference>
+</default>
+
+
+	
+	
+
+</layout>

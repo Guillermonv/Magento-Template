@@ -1,0 +1,119 @@
+<?php
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2011-2014 Webcomm Pty Ltd
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+?>
+<?php
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+<div class="container">
+    <header role="banner">
+        <?php if ($this->getIsHomePage()):?>
+        <h1 class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a></h1>
+        <?php else:?>
+        <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+        <?php endif?>
+        <div class="quick-access">
+            <div class="clearfix">
+                
+	 <?php 
+ $configValue = Mage::getStoreConfig('ajaxminicart/general/enable');
+ if($configValue):
+ ?> 
+<!-- shopping cart -->     
+    <?php $_cartQty = $this->getSummaryCount() ?>
+    <div class="header-cart">
+        <div class="inner">
+		
+            <div class="relative">
+		
+			
+			<img align="left" src="http://www.adamscable.com/images/phone_purple40x40.png">02262 -4069736</img>&nbsp;&nbsp;&nbsp;
+			
+			<!--.buttons-logs .register-btn
+		?php
+    if ($this->helper('customer')->isLoggedIn() ) {
+       Bienvenido : 
+    } else { 
+        
+    } 	-->
+                <a href="<?php echo Mage::helper('checkout/cart')->getCartUrl(); ?>" class="btn btn-iconed cart-btn"> <i class="icon-shopcart"></i> <span class="cart-value" id="mini-cart-total"><?php echo $this->helper('checkout')->formatPrice(Mage::getSingleton('checkout/cart')->getQuote()->getGrandTotal()); ?>
+</span> </a>
+                <?php $_items = $this->getRecentItems() ?>
+                <!-- CART ITEMS -->
+                
+                    <div class="cart-items-box" style="display:none">
+                    <div class="cart-header" id="header-text"> 
+                    <?php if(count($_items)): ?>                         
+                            Showing <?php echo count($_items); ?> of <?php echo count($_items); ?> items added                      
+                         <?php 
+                         else:                           
+                            echo "No items in cart to dispaly";
+                         
+                         endif ?> 
+                      </div>
+                        
+                        <ul class="items clearfix" id="mini-cart-summary" style="min-height: 10px;">
+                            <?php foreach($_items as $_item): ?>
+                                <?php echo $this->getItemHtml($_item) ?>
+                            <?php endforeach; ?>
+                        </ul> 
+                        <div class="row mini-cart-footer" id="minicartfooterid">
+                           <a type="submit" href="<?php echo Mage::getUrl('checkout/cart') ?>"  title="View Cart" class="btn btn-primary button view-cart-btn"><span>View Cart</span></a>  
+                            <a href="<?php echo Mage::helper('checkout/url')->getCheckoutUrl(); ?>"  title="Checkout" class="btn btn-primary button col-md-3 mini-cart-see-all"><span>Checkout</span></a>                           
+                        </div>  
+                    </div>          
+               
+                <!-- /CART ITEMS -->
+				
+&nbsp;&nbsp;<a class="btn btn-large btn-primary" href="">Registrate o inicia sesion</a>
+			
+			
+		
+            </div>
+        </div>
+
+    </div>
+<!-- /shopping cart -->  
+ <?php 
+    $version =  Mage::getVersion(); 
+    if((float)$version != 1.9):
+        echo "<style> .relative {position:relative;} </style>";
+    endif;
+?>
+<div id="load_animate" style="display:none; position:fixed; top:46%; left:46%; z-index:9999"><img src="<?php echo  $this->getSkinUrl('images/ajax_load.gif');  ?>" alt="Loading.." title="Loading..."></div>
+<div class="notification" id="notification" style="display:none; height:80px; "></div>
+<?php endif;?>
+                <?php echo $this->getChildHtml('store_language') ?>
+				
+            </div>
+            <?php echo $this->getChildHtml('topSearch') ?>
+				
+			
+        </div>
+        <?php echo $this->getChildHtml('topContainer'); ?>
+    </header>
+</div>
+<?php echo $this->getChildHtml('topMenu') ?>
